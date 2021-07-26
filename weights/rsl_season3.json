@@ -195,7 +195,7 @@
             "2": 1,
             "3": 1,
             "4": 1,
-            "random": 1
+            "random": 0
         },
         "tokensanity": {
             "off": 1,
@@ -410,9 +410,9 @@
         },
         "hints": {
             "none": 0,
-            "mask": 1,
-            "agony": 1,
-            "always": 8
+            "mask": 0,
+            "agony": 0,
+            "always": 1
         },
         "hint_dist": {
             "balanced": 1,

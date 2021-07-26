@@ -1,4 +1,4 @@
-import json, random, sys, os, traceback, argparse
+import json, random, sys, os, traceback, argparse, datetime
 import rsl_tools as tools
 tools.check_version()
 import roll_settings as rs
@@ -89,8 +89,29 @@ def main():
             tools.init_randomizer_settings(plando_filename=plando_filename, worldcount=worldcount)
         else:
             plandos_to_cleanup.append(plando_filename)
-            completed_process = tools.generate_patch_file(plando_filename=plando_filename, worldcount=worldcount)
+            if worldcount <= 1:
+                print("Generating seed")
+                completed_process = tools.generate_patch_file(plando_filename=plando_filename, worldcount=worldcount, patch_filename='plando', patch_folder='data', patch='None')
+            else:
+                completed_process = tools.generate_patch_file(plando_filename=plando_filename, worldcount=worldcount)
             if completed_process.returncode == 0:
+                # check for multiworld
+                if worldcount <= 1:
+                    print("Generating hints")
+                    spoiler = 'plando_Spoiler.json'
+                    # Clean up interim spoiler post-patch
+                    plandos_to_cleanup.append(spoiler)
+                    plandos_to_cleanup.append('plando_Distribution.json')
+                    # generate hint distro
+                    hint_dist, named_items = tools.generate_hint_distro(spoiler)
+                    # update spoiler as plando with new hint distro
+                    tools.update_plando_file(spoiler, hint_dist, named_items)
+                    # re-patch with new plando
+                    completed_process = tools.generate_patch_file(plando_filename=spoiler, worldcount=worldcount)
+                    if completed_process.returncode == 0:
+                        break
+                    else:
+                        os.rename(os.path.join('data','plando_Spoiler.json'),os.path.join('data',f'error_plando_Spoiler{datetime.datetime.utcnow():%Y-%m-%d_%H-%M-%S_%f}.json'))
                 break
             if i == max_retries-1 and completed_process.returncode != 0:
                 raise tools.RandomizerError(completed_process.stderr)
