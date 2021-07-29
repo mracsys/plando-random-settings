@@ -10,7 +10,8 @@
             "disable_fortresskeys_independence": true,
             "disable_lacs_condition_ifnot_ganonbosskey": true,
             "restrict_one_entrance_randomizer": false,
-            "workaround_th_scz_bug": true
+            "workaround_th_scz_bug": true,
+            "restrict_one_skull_wincon": true
         },
         "tricks": [
             "logic_fewer_tunic_requirements",

@@ -70,3 +70,12 @@ def workaround_th_scz_bug(weight_dict, random_settings):
     if random_settings['triforce_hunt'] and random_settings['triforce_goal_per_world'] == 1 and random_settings['shuffle_song_items'] == 'any' and random_settings['skip_child_zelda']:
         weights.pop(1)
         random_settings['triforce_goal_per_world'] = random.choices(list(weights.keys()), weights=list(weights.values()))[0]
+
+def restrict_one_skull_wincon(weight_dict, random_settings):
+    if random_settings['bridge'] == 'tokens' and random_settings['lacs_condition'] == 'tokens' and random_settings['shuffle_ganon_bosskey'] == 'on_lacs':
+        setting_choices = ['bridge','lacs_condition']
+        setting_to_reroll = random.choice(setting_choices)
+        setting_choices.remove(setting_to_reroll)
+        weights = weight_dict[setting_to_reroll]
+        weights.pop(random_settings[setting_choices[0]])
+        random_settings[setting_to_reroll] = random.choices(list(weights.keys()), weights=list(weights.values()))[0]
