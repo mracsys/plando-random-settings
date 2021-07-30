@@ -280,11 +280,6 @@ def generate_hint_distro(spoiler='plando_Spoiler.json'):
             if 'Bow' not in always_items:
                 named_items.append('Bow')
 
-        if (plando['settings']['shuffle_smallkeys'] in ['overworld','any_dungeon','keysanity']
-        or plando['settings']['shuffle_bosskeys'] in ['overworld','any_dungeon','keysanity']):
-            if 'Farores Wind' not in always_items:
-                named_items.append('Farores Wind')
-
         if (plando['settings']['shuffle_smallkeys'] in ['keysanity']
         and any(trial in trials for trial in ['Light vanilla','Light mq','Water mq'])):
             always_count = always_items.count('Small Key (Ganons Castle)')
