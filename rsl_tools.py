@@ -171,7 +171,6 @@ def generate_hint_distro(spoiler='plando_Spoiler.json'):
             'Light Arrows',
             'Magic Meter',
             'Bow',
-            'Farores Wind',
             'Small Key (Ganons Castle)',
             'Progressive Strength Upgrade',
             'Mirror Shield',
@@ -219,30 +218,7 @@ def generate_hint_distro(spoiler='plando_Spoiler.json'):
                 if plando['locations'][boss] == 'Shadow Medallion' or plando['locations'][boss] == 'Spirit Medallion':
                     wincon.append(dungeon + ' ' + plando['dungeons'][dungeon])
 
-        # Always hints pointing to named-item hints cause the location to be locked. Named-item hints
-        # will correctly not generate a hint in this case, but named_items_required=true doesn't handle 
-        # having the item already hinted and throws an error thinking it's not hinted.
-        # Bingo handled this by disabling always hints. DDR doesn't use named_items_required.
-        # For RSL we don't want to do either. To work around this until the randomizer is fixed, detect
-        # and remove always-hinted named items from the item_hints list prior to generation.
-        # I'm not sure how to import modules from dynamically downloaded files, so just duplicate the 
-        # rando logic here for now.
-        always_locations = ['ZR Frogs Ocarina Game', 'KF Links House Cow', 'DMT Biggoron']
-        if plando['randomized_settings']['big_poe_count'] > 3:
-            always_locations.append('Market 10 Big Poes')
-        if plando['settings']['complete_mask_quest'] != True:
-            always_locations.append('Deku Theater Mask of Truth')
-        if stones_required_by_settings(plando['settings']) < 2:
-            always_locations.append('Song from Ocarina of Time')
-            always_locations.append('HF Ocarina of Time Item')
-        if medallions_required_by_settings(plando['settings']) < 5:
-            always_locations.append('Sheik in Kakariko')
-        if tokens_required_by_settings(plando['settings']) < 30:
-            always_locations.append('Kak 30 Gold Skulltula Reward')
-        if tokens_required_by_settings(plando['settings']) < 40:
-            always_locations.append('Kak 40 Gold Skulltula Reward')
-        if tokens_required_by_settings(plando['settings']) < 50:
-            always_locations.append('Kak 50 Gold Skulltula Reward')
+        always_locations = []
         # Special case for Skip Child Zelda as it's always ignored for hints in the randomizer
         # This gets converted to a starting item in the spoiler and the SCZ is removed, so may
         # not be relevant to check
