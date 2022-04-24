@@ -26,7 +26,7 @@ def download_randomizer():
         os.remove(zippath)
 
     # Download the zipped randomizer
-    req = requests.get(f'https://github.com/Roman971/OoT-Randomizer/archive/{randomizer_commit}.zip', stream=True)
+    req = requests.get(f'https://github.com/mracsys/OoT-Randomizer/archive/{randomizer_commit}.zip', stream=True)
     with open(zippath, 'wb') as fin:
         for chunk in req.iter_content():
             fin.write(chunk)
@@ -39,7 +39,7 @@ def download_randomizer():
         pass
 
     # Restore permissions in the unzipped randomizer
-    for executable in [os.path.join('randomizer', 'OoTRandomizer.py'), os.path.join('randomizer', 'Decompress', 'Decompress')]:
+    for executable in [os.path.join('randomizer', 'OoTRandomizer.py'), os.path.join('randomizer', 'bin', 'Decompress', 'Decompress')]:
         os.chmod(executable, os.stat(executable).st_mode | stat.S_IXUSR | stat.S_IXGRP | stat.S_IXOTH)
 
     # Delete the zip file
@@ -121,7 +121,7 @@ def find_rom_file():
 # Compare weights file to settings list to check for changes to the randomizer settings table
 def check_for_setting_changes(weights, randomizer_settings):
     """ Function to check for new settings and options when the randomizer is updated. """
-    ignore_list = ["tricks_list_msg", "bingosync_url", "dungeon_shortcuts"]
+    ignore_list = ["tricks_list_msg", "bingosync_url", "dungeon_shortcuts", "misc_hints", "mix_entrance_pools", "mq_dungeons_specific", "key_rings"]
 
     # Find new or changed settings by name
     old_settings = list(set(weights.keys()) - set(randomizer_settings.keys()))

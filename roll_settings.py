@@ -32,7 +32,8 @@ def generate_balanced_weights(fname="default_weights.json"):
                 list(get_settings_from_tab("other_tab")) + \
                 list(get_settings_from_tab("starting_tab"))
 
-    exclude_from_weights = ["bridge_tokens", "ganon_bosskey_tokens", "triforce_goal_per_world", "disabled_locations",
+    exclude_from_weights = ["bridge_tokens", "ganon_bosskey_tokens", "bridge_hearts", "ganon_bosskey_hearts",
+                            "triforce_goal_per_world", "triforce_count_per_world", "disabled_locations",
                             "allowed_tricks", "starting_equipment", "starting_items", "starting_songs"]
     weight_dict = {}
     for name in settings_to_randomize:
@@ -75,7 +76,7 @@ def draw_choices_from_pool(itempool):
 
 def remove_plando_if_random(random_settings):
     """ For settings that have a _random option, remove the specific plando if _random is true """
-    settings_to_check = ["trials", "mq_dungeons", "chicken_count", "big_poe_count"]
+    settings_to_check = ["trials", "chicken_count", "big_poe_count"]
     for setting in settings_to_check:
         if random_settings[setting+'_random'] == "true":
             random_settings.pop(setting)
@@ -113,7 +114,7 @@ def draw_dungeon_shortcuts(random_settings):
 def generate_plando(weights, override_weights_fname, no_seed):
     # Load the weight dictionary
     if weights == "RSL":
-        weight_options, weight_multiselect, weight_dict = load_weights_file("rsl_season4.json")
+        weight_options, weight_multiselect, weight_dict = load_weights_file("rsl_seasonM.json")
     elif weights == "full-random":
         weight_options = None
         weight_dict = generate_balanced_weights(None)
@@ -174,12 +175,16 @@ def generate_plando(weights, override_weights_fname, no_seed):
     # Make a new function that parses the weights file that does this stuff
     ####################################################################################
     # Generate even weights for tokens and triforce pieces given the max value (Maybe put this into the step that loads the weights)
-    for nset in ["bridge_tokens", "ganon_bosskey_tokens", "triforce_goal_per_world"]:
-        kw = nset + "_max"
-        nmax = weight_options[kw] if kw in weight_options else 100
-        weight_dict[nset] = {i+1: 100./nmax for i in range(nmax)}
-        if kw in weight_dict:
-            weight_dict.pop(kw)
+    for nset in ["bridge_tokens", "ganon_bosskey_tokens", "bridge_hearts", "ganon_bosskey_hearts", "triforce_goal_per_world", "triforce_count_per_world"]:
+        kwx = nset + "_max"
+        kwn = nset + "_min"
+        nmax = weight_options[kwx] if kwx in weight_options else 100
+        nmin = weight_options[kwn] if kwn in weight_options else 1
+        weight_dict[nset] = {i: 100./(nmax - nmin + 1) for i in range(nmin, nmax + 1)}
+        if kwx in weight_dict:
+            weight_dict.pop(kwx)
+        if kwn in weight_dict:
+            weight_dict.pop(kwn)
     ####################################################################################
 
     # Draw the random settings
