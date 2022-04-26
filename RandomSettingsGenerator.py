@@ -10,9 +10,11 @@ import roll_settings as rs
 LOG_ERRORS = True
 
 # Please set the weights file you with to load
-WEIGHTS = "RSL" # The default Random Settings League Season 4 weights
+# WEIGHTS = "RSL" # The default Random Settings League Season 4 weights
 # Every setting with even weights
 # WEIGHTS = "full-random"
+# Experimental Dev-M Settings
+WEIGHTS = "DEVM"
 # Provide your own weights file. If the specified file does not exist, this will create it
 # WEIGHTS = "my_weights.json"
 
@@ -88,7 +90,7 @@ def main():
 
     # If we only want to check for new/changed settings
     if check_new_settings:
-        woptions, multiselects, rslweights = rs.load_weights_file("rsl_seasonM.json")
+        woptions, multiselects, rslweights = rs.load_weights_file("devM.json")
         tools.check_for_setting_changes(rslweights, rs.generate_balanced_weights(None))
         return
     

@@ -114,7 +114,9 @@ def draw_dungeon_shortcuts(random_settings):
 def generate_plando(weights, override_weights_fname, no_seed):
     # Load the weight dictionary
     if weights == "RSL":
-        weight_options, weight_multiselect, weight_dict = load_weights_file("rsl_seasonM.json")
+        weight_options, weight_multiselect, weight_dict = load_weights_file("rsl_season4.json")
+    if weights == "DEVM":
+        weight_options, weight_multiselect, weight_dict = load_weights_file("devM.json")
     elif weights == "full-random":
         weight_options = None
         weight_dict = generate_balanced_weights(None)
