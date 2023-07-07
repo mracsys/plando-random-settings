@@ -43,12 +43,19 @@ def disable_pot_chest_texture_independence(random_settings, **kwargs):
         random_settings['correct_potcrate_appearances'] = 'off'
 
 
-def disable_hideoutkeys_independence(random_settings, **kwargs):
-    """ Set shuffle_hideoutkeys to match shuffle_smallkeys. """
-    if random_settings['shuffle_smallkeys'] in ['remove', 'vanilla', 'dungeon']:
+def disable_keysanity_independence(random_settings, **kwargs):
+    """ Set shuffle_hideoutkeys and shuffle_tcgkeys to match shuffle_smallkeys. """
+    if random_settings['shuffle_smallkeys'] == 'remove':
         random_settings['shuffle_hideoutkeys'] = 'vanilla'
+        random_settings['shuffle_tcgkeys'] = 'remove'
+
+    elif random_settings['shuffle_smallkeys'] in ['vanilla', 'dungeon']:
+        random_settings['shuffle_hideoutkeys'] = 'vanilla'
+        random_settings['shuffle_tcgkeys'] = 'vanilla'
+
     else:
         random_settings['shuffle_hideoutkeys'] = random_settings['shuffle_smallkeys']
+        random_settings['shuffle_tcgkeys'] = random_settings['shuffle_smallkeys']
 
 
 def restrict_one_entrance_randomizer(random_settings, **kwargs):
@@ -213,7 +220,7 @@ def exclude_mapcompass_info_remove(random_settings, weight_dict, **kwargs):
 def ohko_starts_with_nayrus(random_settings, weight_dict, extra_starting_items, **kwargs):
     """ If one hit ko is enabled, add Nayru's Love to the starting items """
     if random_settings['damage_multiplier'] == 'ohko':
-        extra_starting_items['starting_items'] += ['nayrus_love']
+        extra_starting_items['starting_inventory'] += ['nayrus_love']
 
 def invert_dungeons_mq_count(random_settings, weight_dict, **kwargs):
     """ When activated will invert the MQ dungeons count
@@ -245,7 +252,7 @@ def replicate_old_child_trade(random_settings, extra_starting_items, **kwargs):
         random_settings["shuffle_child_trade"] = ["Weird Egg"]
     else:
         random_settings["shuffle_child_trade"] = []
-        extra_starting_items['starting_items'] += ["zeldas_letter"]
+        extra_starting_items['starting_inventory'] += ["zeldas_letter"]
 
 
 def shuffle_valley_lake_exit(random_settings, **kwargs):
@@ -260,9 +267,9 @@ def select_one_pots_crates_freestanding(random_settings, **kwargs):
     weights = [int(x) for x in kwargs['cparams'][2].split('/')]
 
     # If setting is randomized off, return
-    if not random.choices([True, False], weights=[chance_one_is_on, 100-chance_one_is_on]):
-        return
+    if not (random.randint(0, 100) < chance_one_is_on):
+       return
 
-    # Chose which of the settings to turn on
+    # Choose which of the settings to turn on
     setting = random.choices(["shuffle_pots", "shuffle_crates", "shuffle_freestanding_items"], weights=setting_weights)[0]
     random_settings[setting] = random.choices(["overworld", "dungeons", "all"], weights=weights)[0]
