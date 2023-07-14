@@ -15,10 +15,14 @@ def randomizer_settings_func(rootdir=os.getcwd(), plando_filename='random_settin
     return {
         "rom": find_rom_file(),
         "output_dir": os.path.join(rootdir, 'patches'),
-        "compress_rom": "Patch",
-        "enable_distribution_file": "True",
+        "create_patch_file": True,
+        "create_compressed_rom": False,
+        "create_wad_file": False,
+        "create_uncompressed_rom": False,
+        "create_cosmetics_log": False,
+        "enable_distribution_file": True,
         "distribution_file": os.path.join(rootdir, "data", plando_filename),
-        "create_spoiler": "True",
+        "create_spoiler": True,
         "world_count": worldcount
     }
 
@@ -52,6 +56,57 @@ def generate_patch_file(plando_filename='random_settings.json', worldcount=1, ma
             print(f"RSL GENERATOR: MAX RETRIES ({max_retries}) REACHED. RESELECTING SETTINGS.")
             break
         break
+    return completed_process
+
+
+def generate_spoiler_file(plando_filename='random_settings.json', worldcount=1, max_retries=3):
+    """ Using the randomized settings, roll a spoiler-only seed using the randomizer CLI. """
+    settings = randomizer_settings_func(plando_filename=plando_filename, worldcount=worldcount)
+    settings["create_patch_file"] = False
+    settings = json.dumps(settings)
+
+    retries = 0
+    while True:
+        #print(f"RSL GENERATOR: RUNNING THE RANDOMIZER - ATTEMPT {retries+1} OF {max_retries}")
+        completed_process = subprocess.run(
+            [sys.executable, os.path.join("randomizer", "OoTRandomizer.py"), "--settings=-"],
+            capture_output=True,
+            input=settings,
+            encoding='utf-8',
+        )
+
+        if completed_process.returncode != 0:
+            retries += 1
+            if retries < max_retries:
+                continue
+            #print(f"RSL GENERATOR: MAX RETRIES ({max_retries}) REACHED. RESELECTING SETTINGS.")
+            break
+        break
+
+    plandos = glob.glob(os.path.join("patches", "*_Distribution.json"))
+    if len(plandos) > 0:
+        for plando in plandos:
+            os.remove(plando)
+    return completed_process
+
+
+def generate_collected_locations():
+    """ Using the randomized settings, roll a seed using the randomizer CLI. """
+    spoiler = glob.glob(os.path.join("patches", "*_Spoiler.json"))[0]
+    with open(spoiler, 'r') as f:
+        settings = json.load(f)
+
+    settings[":collect"] = "all"
+    del settings["item_pool"]
+    if settings["settings"]["hint_dist"] == "custom":
+        del settings["settings"]["hint_dist"]
+
+    completed_process = subprocess.run(
+        [sys.executable, os.path.join("randomizer", "LogicAPI.py")],
+        input=json.dumps(settings),
+        encoding='utf-8',
+    )
+
     return completed_process
 
 

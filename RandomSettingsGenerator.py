@@ -1,11 +1,13 @@
+#!/usr/bin/env python3
+
 """ Run this script to roll a random settings seed! """
 import sys
 import os
 import traceback
 import argparse
 
-import update_randomizer as ur
-ur.check_version()
+#import update_randomizer as ur
+#ur.check_version()
 
 from utils import cleanup
 import rsl_tools as tools
@@ -76,6 +78,8 @@ def get_command_line_args():
                         help="Retry limit for generating a plando file.")
     parser.add_argument("--rando_retries", type=range_limited_int_type, default=3,
                         help="Retry limit for running the randomizer with a given settings plando.")
+    parser.add_argument("--test_javascript", action="store_true",
+                        help="Run LogicAPI to output visited locations for randomly generated settings.")
     args = parser.parse_args()
 
 
@@ -99,7 +103,8 @@ def get_command_line_args():
         "seed_count": args.seed_count,
         "benchmark": args.benchmark,
         "plando_retries": args.plando_retries,
-        "rando_retries": args.rando_retries
+        "rando_retries": args.rando_retries,
+        "test_javascript": args.test_javascript
     }
 
 
@@ -117,6 +122,15 @@ def main():
     if args["benchmark"]:
         weight_options, weight_multiselect, weight_dict, start_with = rs.generate_weights_override(WEIGHTS, args["override_fname"])
         tools.benchmark_weights(weight_options, weight_dict, weight_multiselect)
+        return
+
+    if args["test_javascript"]:
+        for i in range(args["plando_retries"]):
+            plando_filename = rs.generate_plando("weights/rsl_season6_main_test.json", args["override_fname"], args["no_seed"])
+            completed_process = tools.generate_spoiler_file(plando_filename=plando_filename, worldcount=args["worldcount"], max_retries=args["rando_retries"])
+            if completed_process.returncode == 0:
+                break
+        completed_process = tools.generate_collected_locations()
         return
 
     for i in range(args["seed_count"]):
