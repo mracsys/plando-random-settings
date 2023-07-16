@@ -87,7 +87,22 @@ def generate_spoiler_file(plando_filename='random_settings.json', worldcount=1, 
     if len(plandos) > 0:
         for plando in plandos:
             os.remove(plando)
+    remove_plando_spoiler_keys()
     return completed_process
+
+
+def remove_plando_spoiler_keys():
+    spoiler = glob.glob(os.path.join("patches", "*_Spoiler.json"))[0]
+    with open(spoiler, 'r') as f:
+        settings = json.load(f)
+
+    settings[":collect"] = "spheres"
+    del settings["item_pool"]
+    if settings["settings"]["hint_dist"] == "custom":
+        del settings["settings"]["hint_dist"]
+
+    with open(spoiler, 'w') as f:
+        json.dump(settings, f, indent=4)
 
 
 def generate_collected_locations():
