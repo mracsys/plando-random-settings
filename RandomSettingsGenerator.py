@@ -130,7 +130,7 @@ def main():
             completed_process = tools.generate_spoiler_file(plando_filename=plando_filename, worldcount=args["worldcount"], max_retries=args["rando_retries"])
             if completed_process.returncode == 0:
                 break
-        completed_process = tools.generate_collected_locations()
+        #completed_process = tools.generate_collected_locations()
         return
 
     for i in range(args["seed_count"]):

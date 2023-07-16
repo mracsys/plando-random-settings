@@ -96,7 +96,7 @@ def generate_collected_locations():
     with open(spoiler, 'r') as f:
         settings = json.load(f)
 
-    settings[":collect"] = "all"
+    settings[":collect"] = "spheres"
     del settings["item_pool"]
     if settings["settings"]["hint_dist"] == "custom":
         del settings["settings"]["hint_dist"]
