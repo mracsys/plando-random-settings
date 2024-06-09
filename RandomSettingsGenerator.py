@@ -114,7 +114,7 @@ def main():
 
     # If we only want to check for new/changed settings
     if args["check_new_settings"]:
-        _, _, rslweights = rs.load_weights_file("weights/rsl_season6.json")
+        _, _, rslweights = rs.load_weights_file("weights/rsl_season6_fenhl_test.json")
         tools.check_for_setting_changes(rslweights, rs.generate_balanced_weights(None))
         return
 
@@ -126,7 +126,7 @@ def main():
 
     if args["test_javascript"]:
         for i in range(args["plando_retries"]):
-            plando_filename = rs.generate_plando("weights/rsl_season6_roman_test.json", args["override_fname"], args["no_seed"])
+            plando_filename = rs.generate_plando("weights/rsl_season6_realrob8_noer_test.json", args["override_fname"], args["no_seed"])
             completed_process = tools.generate_spoiler_file(plando_filename=plando_filename, worldcount=args["worldcount"], max_retries=args["rando_retries"])
             if completed_process.returncode == 0:
                 break

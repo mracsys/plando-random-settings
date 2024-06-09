@@ -96,6 +96,7 @@ def remove_plando_spoiler_keys():
     with open(spoiler, 'r') as f:
         settings = json.load(f)
 
+    print(settings.keys())
     settings[":collect"] = "spheres"
     del settings["item_pool"]
     if settings["settings"]["hint_dist"] == "custom":

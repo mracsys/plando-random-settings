@@ -55,7 +55,7 @@
             "logic_lens_shadow",
             "logic_lens_shadow_platform",
             "logic_lens_shadow_mq_dead_hand",
-            "logic_lens_bongo",
+	        "logic_lens_bongo",
             "logic_lens_castle_mq"
         ],
         "disabled_locations": []
@@ -79,6 +79,16 @@
         "dungeon_shortcuts": {
             "global_enable_percentage": 100,
             "geometric": true
+        },
+        "mix_entrance_pools": {
+            "global_enable_percentage": 50,
+            "geometric": false,
+            "opt_percentage": {
+                "Interior": 100,
+                "GrottoGrave": 100,
+                "Dungeon": 100,
+                "Overworld": 20
+            }
         },
         "misc_hints": {
             "global_enable_percentage": 100,
@@ -172,24 +182,7 @@
         "shuffle_loach_reward": {
             "off": 1,
             "vanilla": 0,
-            "easy": 1
-        },
-        "shuffle_enemy_spawns": {
-            "off": 1,
-            "all": 1,
-            "bosses": 1
-        },
-        "shuffle_gossipstones": {
-            "true": 1,
-            "false": 1
-        },
-        "shuffle_wonderitems": {
-            "true": 1,
-            "false": 1
-        },
-        "shuffle_enemy_drops": {
-            "true": 1,
-            "false": 1
+            "easy": 0
         },
         "shuffle_tcgkeys": {
             "remove": 0,
@@ -372,6 +365,10 @@
         "shuffle_overworld_entrances": {
             "true": 3,
             "false": 7
+        },
+        "decouple_entrances": {
+            "true": 1,
+            "false": 0
         },
         "owl_drops": {
             "true": 1,

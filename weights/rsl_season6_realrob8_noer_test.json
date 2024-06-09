@@ -115,7 +115,7 @@
             }
         },
         "spawn_positions": {
-            "global_enable_percentage": 50,
+            "global_enable_percentage": 0,
             "geometric": false,
             "opt_percentage": {
                 "child": 100,
@@ -177,6 +177,7 @@
         "shuffle_enemy_spawns": {
             "off": 1,
             "all": 1,
+            "regional": 1,
             "bosses": 1
         },
         "shuffle_gossipstones": {
@@ -352,33 +353,33 @@
         },
         "shuffle_interior_entrances": {
             "off": 2,
-            "simple": 1,
-            "all": 1
+            "simple": 0,
+            "all": 0
         },
         "shuffle_grotto_entrances": {
-            "true": 1,
+            "true": 0,
             "false": 1
         },
         "shuffle_dungeon_entrances": {
             "off": 9,
-            "simple": 9,
-            "all": 2
+            "simple": 0,
+            "all": 0
         },
         "shuffle_bosses": {
             "off": 4,
             "limited": 0,
-            "full": 1
+            "full": 0
         },
         "shuffle_overworld_entrances": {
-            "true": 3,
+            "true": 0,
             "false": 7
         },
         "owl_drops": {
-            "true": 1,
+            "true": 0,
             "false": 1
         },
         "warp_songs": {
-            "true": 1,
+            "true": 0,
             "false": 1
         },
         "dungeon_shortcuts_choice": {
@@ -764,7 +765,9 @@
             "normal": 5,
             "on": 3,
             "mayhem": 1,
-            "onslaught": 0
+            "onslaught": 0,
+            "custom_count": 0,
+            "custom_percent": 0
         },
         "ice_trap_appearance": {
             "major_only": 1,
@@ -779,13 +782,9 @@
             "true": 1,
             "false": 1
         },
-        "fix_broken_drops": {
+        "fix_broken_actors": {
             "true": 1,
             "false": 0
-        },
-        "minor_items_as_major_chest": {
-            "true": 0,
-            "false": 1
         },
         "starting_hearts": {
             "3": 131072,
@@ -820,6 +819,38 @@
             "false": 1
         },
         "ruto_already_f1_jabu": {
+            "true": 0,
+            "false": 1
+        },
+        "shuffle_fishies": {
+            "true": 1,
+            "false": 1
+        },
+        "shuffle_boulders": {
+            "true": 1,
+            "false": 0
+        },
+        "shuffle_empty_crates": {
+            "true": 1,
+            "false": 1
+        },
+        "shuffle_empty_pots": {
+            "true": 1,
+            "false": 1
+        },
+        "shuffle_grass": {
+            "true": 1,
+            "false": 1
+        },
+        "dogs_anywhere": {
+            "true": 0,
+            "false": 1
+        },
+        "prevent_guay_respawns": {
+            "true": 0,
+            "false": 1
+        },
+        "decouple_entrances": {
             "true": 0,
             "false": 1
         }
