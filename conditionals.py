@@ -47,20 +47,20 @@ def disable_keysanity_independence(random_settings, **kwargs):
     """ Set shuffle_hideoutkeys and shuffle_tcgkeys to match shuffle_smallkeys. """
     if random_settings['shuffle_smallkeys'] == 'remove':
         random_settings['shuffle_hideoutkeys'] = 'vanilla'
-        random_settings['shuffle_tcgkeys'] = 'remove'
+        # random_settings['shuffle_tcgkeys'] = 'remove'
 
     elif random_settings['shuffle_smallkeys'] in ['vanilla', 'dungeon']:
         random_settings['shuffle_hideoutkeys'] = 'vanilla'
-        random_settings['shuffle_tcgkeys'] = 'vanilla'
+        # random_settings['shuffle_tcgkeys'] = 'vanilla'
 
     else:
         random_settings['shuffle_hideoutkeys'] = random_settings['shuffle_smallkeys']
-        random_settings['shuffle_tcgkeys'] = random_settings['shuffle_smallkeys']
+        # random_settings['shuffle_tcgkeys'] = random_settings['shuffle_smallkeys']
 
 
 def restrict_one_entrance_randomizer(random_settings, **kwargs):
-    """ Ensure only a single pool is shuffled. If more than 1 is shuffled, randomly select one to disable until only one is enabled. """
-    erlist = ["shuffle_interior_entrances:off", "shuffle_grotto_entrances:false", "shuffle_dungeon_entrances:false", "shuffle_overworld_entrances:false"]
+    """ Ensure only a single pool is shuffled. If more than 1 is shuffled, randomly select one to keep and disable the rest. """
+    erlist = ["shuffle_interior_entrances:off", "shuffle_grotto_entrances:false", "shuffle_dungeon_entrances:off", "shuffle_overworld_entrances:false"]
 
     # Count how many ER are on
     enabled_er = []
