@@ -27,7 +27,7 @@
             "invert_dungeons_mq_count": [false, 0],
             "replicate_old_child_trade": [false],
             "shuffle_valley_lake_exit": [true],
-            "select_one_pots_crates_freestanding": [true, 20, "1/1/1", "1/1/1"]
+            "select_one_pots_crates_freestanding": [true, 50, "1/1/1", "1/1/1"]
         },
         "tricks": [
             "logic_fewer_tunic_requirements",
@@ -201,7 +201,7 @@
             "keysanity": 0
         },
         "shuffle_hideout_entrances": {
-            "true": 0,
+            "true": 1,
             "false": 1
         },
         "logic_rules": {
@@ -241,7 +241,7 @@
             "anywhere": 1
         },
         "silver_rupee_pouches_choice": {
-            "off": 0,
+            "off": 1,
             "choice": 0,
             "all": 1,
             "random": 0
@@ -252,7 +252,7 @@
             "textures_unchecked": 0
         },
         "shuffle_gerudo_valley_river_exit": {
-            "true": 0,
+            "true": 1,
             "false": 1
         },
         "keyring_give_bk": {
@@ -347,9 +347,9 @@
             "6": 1
         },
         "starting_age": {
-            "child": 0,
-            "adult": 0,
-            "random": 1
+            "child": 1,
+            "adult": 1,
+            "random": 0
         },
         "shuffle_interior_entrances": {
             "off": 2,
@@ -560,8 +560,8 @@
             "beatable": 1
         },
         "logic_no_night_tokens_without_suns_song": {
-            "true": 0,
-            "false": 1
+            "true": 1,
+            "false": 10
         },
         "no_escape_sequence": {
             "true": 3,
@@ -592,8 +592,8 @@
             "false": 1
         },
         "chicken_count_random": {
-            "true": 1,
-            "false": 0
+            "true": 0,
+            "false": 1
         },
         "complete_mask_quest": {
             "true": 1,
@@ -614,8 +614,8 @@
             "7": 1
         },
         "big_poe_count_random": {
-            "true": 1,
-            "false": 0
+            "true": 0,
+            "false": 1
         },
         "big_poe_count": {
             "1": 1,
@@ -815,7 +815,7 @@
             "false": 1
         },
         "shuffle_individual_ocarina_notes": {
-            "true": 0,
+            "true": 1,
             "false": 1
         },
         "ruto_already_f1_jabu": {
@@ -827,8 +827,8 @@
             "false": 1
         },
         "shuffle_boulders": {
-            "true": 1,
-            "false": 0
+            "true": 0,
+            "false": 1
         },
         "shuffle_empty_crates": {
             "true": 1,
